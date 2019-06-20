@@ -181,4 +181,69 @@ app.listen(p, HOST)
 
 console.log(`Running on http://${HOST}:${p}`);
 ```
+9. Creamos la clase de apoyo API_helper
+```
+nano APiI_helper.js
+```
+Y copiamos lo siguiente:
+```
+const request = require('request')
 
+module.exports = {
+    /*
+    ** This method returns a promise
+    ** which gets resolved or rejected based
+    ** on the result from the API
+    */
+    make_API_call : function(url){
+        return new Promise((resolve, reject) => {
+            request(url, { json: true }, (err, res, body) => {
+              if (err) reject(err)
+              resolve(body)
+            });
+        })
+    }
+}
+```
+Esta clase es muy basica, para una consumir un api get desde una url
+Example:
+```
+http://172.17.0.3:3000/viewAlumno
+```
+
+### Creación de una imagen a partir de un Dockerfile 🔧
+1. Creamos el archivo Dockerfile en la misma ruta donde tenemos index.js
+```
+nano Dockerfile
+```
+Con la siguiente informacion
+```
+FROM node
+WORKDIR /server
+ADD . /server
+RUN npm install
+ENV PORT 3001
+ENV IP "172.17.0.4"
+CMD ["node","index.js"]
+```
+2. Creamos nuestra imagen 
+```
+docker build -t server-node
+```
+Con esto teminamos la instalacion y configuracion de node y nuestro proyecto en un contenedor de docker
+
+### Ejecutando las pruebas ⚙️
+1. Ingresamos al contenedor 
+```
+docker exec -it server-node bash
+```
+2. Nos dirigimos a l ruta donde se encutra el proyecto
+```
+cd server
+```
+3. Ejecutamos nuestro index.js
+```
+node index.js
+```
+Podemos agregarle variables, ya que maneja variables de entorno
+Example: ```HOST=192.168.0.1 PORT=3050 IP=172.172.0.5 node index.js -e```
