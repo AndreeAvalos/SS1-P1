@@ -37,7 +37,7 @@ sudo apt-get install -y docker-engine
 2. Creamos el ambiente de desarrollo para docker con node js
 Este comando baja del repositorio de docker las herramientas necesarias para ejecutar node js
 ```
-docker pull node js
+docker pull node
 ```
 3. Para un mejor manejo de archivos entre el contenedor y la computadora local, podemos hacer una carpeta compartida.
 Example.
