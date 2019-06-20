@@ -48,3 +48,137 @@ docker run -it -v /home/andree/ServerP1:/server --name server-node -p 3001:3001 
 * **-v** Crea una carpeta compartida
 * **-name** Asigna una nombre al contenedor
 * **-p** Mapea el puerto
+
+4. A la hora de ejecutar el comando anterior, nos ingresa al contenedor
+Nos dirigimos hacia nuestro proyecto e iniciamos la configuracion
+```
+cd server
+npm init
+```
+5. Nos mostrara una configuracion por defecto de package.json
+```
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andree",
+  "license": "ISC"
+}
+```
+6. Creamos un archivo en la carpeta compartida el cual llamaremos index.js
+```
+nano index.js
+```
+7. Instalamos express, request, body-parser, request-promise y mysql
+```
+npm i express
+npm install mysql
+npm install request
+npm install body-parser
+npm install request-promise
+```
+8. Modificamos index.js y copiamos lo siguiente
+```
+const express = require('express')
+const app = express()
+const api_helper = require('./API_helper')
+var request = require('request');
+var body_parser = require('body-parser')
+const HOST = process.env.HOST || "172.17.0.4"
+const port =  process.env.PORT || 3000
+const ip = process.env.IP || "172.17.0.3"
+const p = 3001
+var rp = require('request-promise');
+
+app.use(body_parser.urlencoded({extended:true}));
+
+bodyParser = require('body-parser').json();
+var formulario = '<form method="post" action= "/insertar">'
+    + '<label for="dpi">DPI</label>'
+    + '<input type="text" name="dpi" id="dpi">' 
+    + '<label for="carnet">Carnet</label>'
+    + '<input type="text" name="carnet" id="carnet">' 
+    + '<label for="nombre">Nombre</label>'
+    + '<input type="text" name="nombre" id="nombre">' 
+    + '<label for="apellido">Apellido</label>'
+    + '<input type="text" name="apellido" id="apellido">'    
+    + '<label for="email">Correo</label>'
+    + '<input type="text" name="email" id="email">'  
+    + '<label for="telefono">Telefono</label>'
+    + '<input type="text" name="telefono" id="telefono">'  
+    + '<input type="submit" value="Enviar"/>'
+    + '</form>';
+
+var cabecera = '<h1>Insertar Alumno</h1>';
+
+app.get('/insertar', function (req, res) {
+    res.send('<html><body>'
+            + cabecera
+            + formulario
+            + '</html></body>'
+    );
+});
+
+app.post('/insertar', function (req, res) {
+ 
+    var dpi = req.body.dpi || '';
+    var carnet = req.body.carnet || '';
+    var nombre = req.body.nombre || '';
+    var apellido = req.body.apellido || '';
+    var email = req.body.email || '';
+    var telefono = req.body.telefono || ''; 
+
+    var requestData ={
+    	"carnet":carnet,
+    	"dpi":dpi,
+    	"nombre":nombre,
+    	"apellido":apellido,
+    	"email":email,
+    	"telefono":telefono
+    };
+    var ruta = 'http://'+ip+':'+port+'/insertAlumno';
+
+    request.post(ruta, {
+	  json: requestData
+	}, (error, res, body) => {
+	  if (error) {
+	    console.log('Error')
+	    return
+	  }
+	  console.log(`statusCode: ${res.statusCode}`);
+	  console.log(body);
+	})
+
+});
+
+app.get('/', function (req, res) {
+      	res.send('<p><a href="/insertar">Insertar un Alumno</a></p>'
+      			+'<a href="/viewAlumno">Ver Alumnos</a>'
+    );
+})
+
+app.get('/viewAlumno', function (req, res) {
+
+	var ruta = 'http://'+ip+':'+port+'/viewAlumno';
+	api_helper.make_API_call(ruta)
+    .then(response => {
+    	//console.log(response);
+        res.json(response);
+    })
+    .catch(error => {
+        res.send(error)
+    })
+
+
+})
+
+
+app.listen(p, HOST)
+
+console.log(`Running on http://${HOST}:${p}`);
+```
+
