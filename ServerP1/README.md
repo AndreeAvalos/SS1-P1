@@ -272,8 +272,8 @@ docker pull andreeavalos/server
 ```
 
 ## Construido con 🛠️
-[Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/) - Ambiente de trabajo
-[Node JS](https://nodejs.org/es/docs/)-Framework
+* [Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/) - Ambiente de trabajo
+* [Node JS](https://nodejs.org/es/docs/)-Framework
 
 
 ## Autores ✒️
