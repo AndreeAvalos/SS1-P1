@@ -1,5 +1,6 @@
-# DOCKERFILE
-
+# Seminario de Sistemas 1
+Proyecto Fase 1 de Seminario de Sistemas 1
+### Pre-requisitos 📋
 Universidad de San Carlos de Guatemala
 Facultad de Ingenieria
 Seminario de Sistemas 1
