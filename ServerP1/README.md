@@ -232,7 +232,7 @@ docker build -t server-node
 ```
 Con esto teminamos la instalacion y configuracion de node y nuestro proyecto en un contenedor de docker
 
-### Ejecutando las pruebas ⚙️
+## Ejecutando las pruebas ⚙️
 1. Ingresamos al contenedor 
 ```
 docker exec -it server-node bash
@@ -246,4 +246,36 @@ cd server
 node index.js
 ```
 Podemos agregarle variables, ya que maneja variables de entorno
-Example: ```HOST=192.168.0.1 PORT=3050 IP=172.172.0.5 node index.js -e```
+Example: 
+```
+HOST=192.168.0.1 PORT=3050 IP=172.172.0.5 node index.js -e
+```
+
+## Deployment 📦
+Para poder subir la imagen a Docker hub
+1. Agregamos un tag
+```
+docker tag nombreimagen:tag user/server:tagname
+```
+2. Damos push
+```
+docker push user/server:tagname
+```
+Example:
+```
+docker tag bd_p1:latest andreeavalos/server:01
+docker push andreeavalos/server:01
+```
+3. Para poder bajar el repositorio 
+```
+docker pull andreeavalos/server
+```
+
+## Construido con 🛠️
+[Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/) - Ambiente de trabajo
+[Node JS](https://nodejs.org/es/docs/)-Framework
+
+
+## Autores ✒️
+
+* *Carlos Andree Avalos Soto*-*Trabajo Inicial*-[andreeavalos](https://github.com/andreeavalos)
