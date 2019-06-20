@@ -139,3 +139,12 @@
 
         docker run -d -p 3000:3001 --name mi-api --rm -e PORT=3001 -e IP="localapi" ApiP1
 
+---
+
+# INFORMACION API
+        
+### 1. viewAlumno
+>Mostrar inforamcion de alumno
+
+### 2. insertAlumno
+>Inserta un alumno a la base de datos
