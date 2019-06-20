@@ -71,3 +71,16 @@ docker exec -it [nombre de la base de datos] bash
 4. Copiar los archivos para construir la base de datos
 5. Crear la imagen de docker con docker build
 
+# Subir Imagen a Docker 
+
+Codigo :
+```
+docker tag nombreiamge:tag andreeavalos/database:tagname
+docker push andreeavalos/database:tagname
+```
+
+Ejemplo :
+```
+docker tag bd_p1:latest andreeavalos/database:01
+docker push andreeavalos/database:01
+```
