@@ -54,11 +54,12 @@ docker build -t [nombre de la base de datos] [dockerfile].
 docker exec -it [nombre de la base de datos] bash
 ```
 # Pasos a seguir
-1. Crear una carpeta para el proyecto 
-    ```
+1. Crear una carpeta para el proyecto
+```
     cd ~
     mkdir miProyectoDocker
-    ```
+   
+```
 2. Entrar a la carpeta
 ```
     cd miProyectoDocker
