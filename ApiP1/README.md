@@ -116,7 +116,8 @@
 
 12. Se instala express
 
-        npm i express 
+        npm i express
+        npm  install mysql
 --- 
 
 # crear la imagen del docker
